@@ -3,7 +3,7 @@ import { Heading, Timeline } from "./ui";
 import { TIMELINE_QUERY } from "@/sanity/lib/queries";
 
 export async function JourneySection() {
-  const {data} = await sanityFetch({query: TIMELINE_QUERY})
+  const {data} = await sanityFetch({query: TIMELINE_QUERY, cache: 'no-cache'})
   return (
     <section id="#journey" className="my-10 flex flex-col gap-6 items-center">
       <Heading className="uppercase" color="accent">
