@@ -14,7 +14,6 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.87.1",
     "@tailwindcss/typography": "^0.5.16",
-    "contentful": "^11.5.18",
     "next": "15.3.1",
     "next-sanity": "^9.10.6",
     "react": "^19.0.0",

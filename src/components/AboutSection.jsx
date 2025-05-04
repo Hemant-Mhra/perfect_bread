@@ -23,12 +23,8 @@ export async function AboutSection() {
           eveniet, aut corrupti rem vel repellendus asperiores dolorum ea
           praesentium molestias aliquam mollitia quibusdam! Doloremque quod
           dolorum quaerat, nesciunt iure voluptate sed earum minima cumque
-          reiciendis culpa eligendi ab explicabo repudiandae, aut corrupti rem
-          vel repellendus asperiores dolorum ea praesentium molestias aliquam
-          mollitia quibusdam! Doloremque quod dolorum quaerat, nesciunt iure
-          voluptate sed earum minima cumque reiciendis culpa eligendi ab
-          explicabo repudiandae.
-        </p>
+          reiciendis culpa eligendi ab explicabo repudiandae
+          </p>
       </div>
       <div className="w-full px-10">
         <Image
