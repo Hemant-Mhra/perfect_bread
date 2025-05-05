@@ -13,6 +13,7 @@ const headerItem = [
 ];
 
 export function Header() {
+  console.log({header: 'header'})
   return (
     <div className="min-h-16 bg-primary flex w-full px-10 text-white justify-between">
       <div className="h-16 relative w-30">

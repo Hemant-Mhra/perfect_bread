@@ -1,11 +1,20 @@
-import { sanityFetch } from "@/sanity/lib/live";
+'use client'
+import { useEffect, useState } from "react";
 import { Heading, Timeline } from "./ui";
-import { TIMELINE_QUERY } from "@/sanity/lib/queries";
 
-export async function JourneySection() {
-  const newData = await sanityFetch({query: TIMELINE_QUERY, cache: 'no-cache'})
-  console.log(newData)
-  const {data} = newData;
+export function JourneySection() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log('data')
+    const fetchTimelineData = async () => {
+      const response = await fetch("/api/timeline");
+      const jsonData = await response.json();
+      setData(jsonData);
+    };
+    fetchTimelineData();
+  }, []);
+
   return (
     <section id="#journey" className="my-10 flex flex-col gap-6 items-center">
       <Heading className="uppercase" color="accent">
@@ -31,7 +40,9 @@ export async function JourneySection() {
           bakers, and as family.
         </p>
       </div>
+      {data.length > 0 && 
       <Timeline data={data}/>
+      }
     </section>
   );
 }

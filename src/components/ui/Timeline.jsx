@@ -1,7 +1,7 @@
 "use client";
 import { LeftArrow } from "@/icons";
 import { toHTML } from "@portabletext/to-html";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { isArray } from "sanity";
 import { twMerge } from "tailwind-merge";
 
@@ -117,8 +117,7 @@ const data2 = [
   },
 ];
 
-export function Timeline({ data }) {
-  console.log(data);
+export function Timeline({data}) {
   const [width, setWidth] = useState(0);
   const [parentWidth, setParentWidth] = useState(0);
   const [index, setIndex] = useState(0);
@@ -128,16 +127,15 @@ export function Timeline({ data }) {
   const parentRef = useRef(null);
 
   const obj = useMemo(() => {
-    return data.reduce((acc, item) => {
+    return data &&
+    data.reduce((acc, item) => {
       acc[item.year] = item;
       return acc;
     }, {});
   }, [data]);
 
-  console.log({ obj });
-
   useEffect(() => {
-    // To get the exact width in decimals
+    // To get the exact width in decimals we use
     setWidth(Number(yearRef.current.getBoundingClientRect().width).toFixed(2));
     setParentWidth(
       Number(parentRef.current.getBoundingClientRect().width).toFixed(2)
@@ -180,14 +178,14 @@ export function Timeline({ data }) {
               }px)`,
             }}
           >
-            {data.map(({ year }) => (
+            {Object.keys(obj).map((year, i) => (
               <span
                 key={year}
                 className={twMerge(
                   "px-6 text-2xl py-2 font-light text-accent cursor-pointer",
                   selectedYear == year && "bg-secondary/30"
                 )}
-                ref={yearRef}
+                ref={i === 0 ? yearRef : null}
                 onClick={() => setSelectedYear(year)}
               >
                 {year}
@@ -210,7 +208,7 @@ export function Timeline({ data }) {
           alt={obj[selectedYear]?.title}
           className="w-50 h-50 rounded-3xl/snug object-cover rounded-3xl aspect-square"
         />
-        <p className="text-xl font-thin">
+        <div className="text-xl flex flex-col font-thin">
           <span className="font-medium uppercase">
             {obj[selectedYear]?.title}
           </span>
@@ -221,8 +219,8 @@ export function Timeline({ data }) {
                 __html: toHTML(obj[selectedYear]?.description),
               }}
             />
-          ) : null}
-        </p>
+          ) : <></>}
+        </div>
       </div>
     </div>
   );
